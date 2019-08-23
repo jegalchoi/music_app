@@ -5,10 +5,10 @@
 <% end %>
 
 <form action="<%= action_url %>" method="POST">
-  <%= auth_token %>
   <% if action == :edit %>
     <input type="hidden" name="_method" value="PATCH">
   <% end %>
+  <%= auth_token %>
 
   <label for="band_name">Name:</label>
   <input type="text" id="band_name" name="band[name]" value="<%= @band.name %>">

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
+    
     render :new
   end
 
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user      
-      render json: @user
+      render :show
     else
       render :new
     end

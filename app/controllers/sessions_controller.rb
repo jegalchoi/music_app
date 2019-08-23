@@ -13,13 +13,13 @@ class SessionsController < ApplicationController
       flash.now[:errors] = ["Incorrect email and/or password"]
       render :new
     else
-      login(user)
+      login!(user)
       redirect_to user_url(user)
     end
   end
 
   def destroy
-    logout_user!
+    logout!
     redirect_to new_session_url
   end
 end
