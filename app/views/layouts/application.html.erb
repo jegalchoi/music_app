@@ -26,6 +26,9 @@
       </div>
     </nav>
     <main>
+      <% flash.each do |key, value| %>
+        <%= value %>
+      <% end %>
       <%= yield %>
     </main>  
     <footer>

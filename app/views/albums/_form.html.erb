@@ -1,0 +1,47 @@
+<% if action == :edit %>
+  <% action_url = album_url(@album) %>
+<% else %>
+  <% action_url = albums_url %>
+<% end %>
+
+<form action="<%= action_url %>" method="POST">
+  <%= auth_token %>
+  
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label for="album_title">Title: </label>
+  <input type="text" id="album_title" name="album[title]" value="<%= @album.title %>">
+  <br><br>
+
+  <label for="album_band">Band: </label>
+  <select name="album[band_id]" id="album_band">
+    <% bands.each do |band| %>
+      <option 
+      <%= "selected" if @band.id == band.id %> 
+      value="<%= band.id %>">   
+        <%= band.name %>
+      </option>
+    <% end %>
+  </select>
+  <br><br>
+
+  <label for="album_year">Year: </label>
+  <input type="number" min="1" max="2019" id="album_year" name="album[year]" value="<%= @album.year %>">
+  <br><br>
+
+  <label>Live or Studio: </label>
+  <br>
+  <label for="album_live">Live</label>
+  <input type="radio" id="album_live" name="album[live]" value="true">
+  <label for="album_studio">Studio</label>
+  <input type="radio" id="album_studio" name="album[live]" value="false" checked="checked">
+
+  <br><br>
+
+
+  <input type="submit" value="<%= (action == :edit) ? 'Edit' : 'Create' %>">
+</form>
+
+<p><%= link_to @band.name, band_url(@band) %></p>

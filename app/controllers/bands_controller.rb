@@ -1,12 +1,10 @@
 class BandsController < ApplicationController
   def index
     @bands = Band.all
-    render :index
   end
 
   def new
     @band = Band.new
-    render :new
   end
 
   def create
@@ -22,8 +20,7 @@ class BandsController < ApplicationController
 
   def show
     @band = Band.find_by(id: params[:id])
-
-    render :show
+    @albums = Album.where(band_id: @band.id)
   end
 
   def destroy
