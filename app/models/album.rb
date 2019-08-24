@@ -3,4 +3,7 @@ class Album < ApplicationRecord
   validates :title, presence: true, uniqueness: true
 
   belongs_to :band
+
+  has_many :albums,
+    dependent: :destroy
 end
