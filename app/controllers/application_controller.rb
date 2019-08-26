@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :login!
   helper_method :logged_in?
+  helper_method :require_user!
 
   private
 
@@ -29,6 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user!
-    #redirect_to ... if current_user.nil?
+    redirect_to new_session_url if current_user.nil?
   end
 end

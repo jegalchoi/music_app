@@ -1,0 +1,58 @@
+<% if action == :edit %>
+  <% action_url = track_url(@track) %>
+<% else %>
+  <% action_url = tracks_url %>
+<% end %>
+
+<form action="<%= action_url %>" method="POST">
+  <%= auth_token %>
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+  
+  <label for="track_title">Title: </label>
+  <input type="text" id="track_title" name="track[title]" value="<%= @track.title %>">
+  <br><br>
+
+  <label>Album: </label>
+  <select name="track[album_id]" id="track_album">
+    <option disabled>-- Select an album --</option>
+    <% @albums.each do |album| %>
+      <option 
+        <%= "selected" if album.id == params[:track] %>
+        value="<%= album.id %>">
+        <%= album.title %>
+      </option>
+    <% end %>
+  </select>
+  <br><br>
+
+  <label for="track_ord">Ord: </label>
+  <input type="integer" id="track_ord" name="track[ord]" value="<%= @track.ord %>">
+  <br><br>
+
+  <label for="track_regular">Regular</label>
+  <input 
+    type="radio" 
+    id="track_regular" 
+    name="track[bonus_track]" 
+    value="false" 
+    checked="checked">
+  <label for="track_bonus">Bonus</label>
+  <input 
+    type="radio" 
+    id="track_bonus" 
+    name="track[bonus_track]" 
+    value="true">
+  <br><br>
+
+  <label for="track_lyrics">Lyrics</label>
+  <textarea name="track[lyrics]" id="track_lyrics"><%= @track.lyrics %></textarea>
+  <br><br>
+
+  <input type="submit" value="<%= (action == :edit) ? 'Edit track' : 'Create a track' %>">
+  
+</form>
+
+<p><%= link_to @album.title, album_url(@album) %></p>
+

@@ -10,5 +10,9 @@
   <input type="submit" value="Edit Album">
 </form>
 
+<%= render @tracks %>
+
+<%= link_to 'Create a Track', new_album_track_url(@album) %>
+
 <p><%= link_to @band.name, band_url(@band) %></p>
 

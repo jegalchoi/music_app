@@ -1,4 +1,6 @@
 class AlbumsController < ApplicationController
+  
+
   def new
     @album = Album.new
     @band = Band.find_by(id: params[:band_id])
@@ -22,6 +24,7 @@ class AlbumsController < ApplicationController
   def show
     find_album
     find_band
+    find_tracks_by_album
   end
 
   def destroy
@@ -34,8 +37,16 @@ class AlbumsController < ApplicationController
   end
 
   def update
-    @band = Band.find_by(id: params[:band_id])
     @album = Album.new(album_params)
+    @band = Band.find_by(id: @album.band_id)
+
+    if @album.update_attributes(album_params)
+      flash[:success] = "Album successfully updated!"
+      redirect_to band_url(@band)
+    else
+      flash[:errors] = @album.errors.full_messages
+      render :edit
+    end
   end
 
   private
@@ -54,5 +65,9 @@ class AlbumsController < ApplicationController
 
   def find_bands
     @bands = Band.all
+  end
+
+  def find_tracks_by_album
+    @tracks = Track.find_by(album_id: @album.id)
   end
 end

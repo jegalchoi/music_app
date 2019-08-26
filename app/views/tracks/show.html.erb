@@ -1,0 +1,15 @@
+<h1><%= @track.title %></h1>
+
+<form action="<%= track_url(@track) %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Remove Track">
+</form>
+<br>
+
+<form action="<%= edit_track_url(@track) %>" method="GET">
+  <input type="submit" value="Edit Track">
+</form>
+
+<p><%= link_to @album.title, album_url(@album) %></p>
+
+

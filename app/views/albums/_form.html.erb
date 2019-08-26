@@ -5,8 +5,7 @@
 <% end %>
 
 <form action="<%= action_url %>" method="POST">
-  <%= auth_token %>
-  
+  <%= auth_token %>  
   <% if action == :edit %>
     <input type="hidden" name="_method" value="PATCH">
   <% end %>
@@ -19,8 +18,8 @@
   <select name="album[band_id]" id="album_band">
     <% bands.each do |band| %>
       <option 
-      <%= "selected" if @band.id == band.id %> 
-      value="<%= band.id %>">   
+        <%= "selected" if @band.id == band.id %> 
+        value="<%= band.id %>">   
         <%= band.name %>
       </option>
     <% end %>
