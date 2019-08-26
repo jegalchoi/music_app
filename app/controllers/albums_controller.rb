@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  
+  before_action :require_user!
 
   def new
     @album = Album.new
@@ -9,12 +9,12 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
-    @band = Band.find_by(id: params[:album][:band_id])
+    find_band_by
     find_bands
     
     if @album.save
       flash[:success] = "Album successfully added!"
-      redirect_to album_url(@album)
+      redirect_to band_url(@band)
     else
       flash[:errors] = @album.errors.full_messages
       render :new
@@ -24,10 +24,14 @@ class AlbumsController < ApplicationController
   def show
     find_album
     find_band
-    find_tracks_by_album
+    @tracks = Track.where(album_id: @album.id)
   end
 
   def destroy
+    find_album
+    find_band
+    @album.destroy
+    redirect_to band_url(@band)
   end
 
   def edit
@@ -38,7 +42,7 @@ class AlbumsController < ApplicationController
 
   def update
     @album = Album.new(album_params)
-    @band = Band.find_by(id: @album.band_id)
+    find_band
 
     if @album.update_attributes(album_params)
       flash[:success] = "Album successfully updated!"
@@ -65,9 +69,5 @@ class AlbumsController < ApplicationController
 
   def find_bands
     @bands = Band.all
-  end
-
-  def find_tracks_by_album
-    @tracks = Track.find_by(album_id: @album.id)
   end
 end

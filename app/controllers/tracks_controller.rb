@@ -1,6 +1,6 @@
 class TracksController < ApplicationController
+  before_action :require_user!
   
-
   def new
     @track = Track.new
     find_album_by_params
@@ -14,7 +14,7 @@ class TracksController < ApplicationController
 
     if @track.save
       flash[:success] = "Track successfully added!"
-      redirect_to track_url(@track)
+      redirect_to album_url(@album)
     else
       flash[:errors] = @track.errors.full_messages
       render :new
@@ -27,6 +27,10 @@ class TracksController < ApplicationController
   end
 
   def destroy
+    find_track
+    find_album_by_track
+    @track.destroy
+    redirect_to album_url(@album)
   end
 
   def edit

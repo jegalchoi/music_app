@@ -1,12 +1,14 @@
 <h1><%= @album.title %></h1>
 
 <form action="<%= album_url(@album) %>" method="POST">
+  <%= auth_token %>
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Album">
 </form>
 <br>
 
 <form action="<%= edit_album_url(@album) %>" method="GET">
+  <%= auth_token %>
   <input type="submit" value="Edit Album">
 </form>
 
