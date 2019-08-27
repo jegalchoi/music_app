@@ -24,6 +24,7 @@ class TracksController < ApplicationController
   def show
     find_track
     find_album_by_track
+    find_notes_by_track
   end
 
   def destroy
@@ -72,6 +73,10 @@ class TracksController < ApplicationController
 
   def find_albums
     @albums = Album.all
+  end
+
+  def find_notes_by_track
+    @notes = Note.where(track_id: @track.id)
   end
 
 end
