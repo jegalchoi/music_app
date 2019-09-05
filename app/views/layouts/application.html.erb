@@ -26,9 +26,11 @@
       </div>
     </nav>
     <main>
-      <% flash.each do |key, value| %>
-        <%= value %>
-      <% end %>
+      <div>
+        <% flash.each do |key, value| %>
+          <%= value %>
+        <% end %>
+      </div>
       <%= yield %>
     </main>  
     <footer>
@@ -36,5 +38,6 @@
       
       <%= yield :footer %>
     </footer>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

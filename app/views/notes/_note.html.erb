@@ -3,11 +3,7 @@
     <%= note.body %>
     (<%= User.find_by(id: note.user_id).email %>)
     <% if current_user == User.find_by(id: note.user_id) %>
-      <form action="<%= note_url(note) %>" method="POST">
-        <%= auth_token %>
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Delete Note">
-      </form>
+      <%=  button_to "Delete Note", note_url(note), method: :delete %>
     <% end %>
   </li>
   <br>

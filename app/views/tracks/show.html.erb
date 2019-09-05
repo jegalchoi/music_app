@@ -1,4 +1,7 @@
-<h1><%= @track.title %></h1>
+<h1><%= @track.title %> (<%= @track.ord %>)</h1>
+<p>
+  <%= @track.lyrics %>
+</p>
 
 <form action="<%= track_url(@track) %>" method="POST">
   <%= auth_token %>
